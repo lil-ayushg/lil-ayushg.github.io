@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ayush Garai</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --gold-dark: #7a5e1e;
+      --bg: #0a0806;
+      --surface: #16110a;
+      --text: #d4c4a0;
+      --text-muted: #7a6a50;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Crimson Text', Georgia, serif;
+      font-size: 18px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    .old-english { font-family: 'UnifrakturMaguntia', serif; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.09) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 100%, rgba(139,26,26,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 100%, rgba(139,26,26,0.08) 0%, transparent 60%),
+        var(--bg);
+    }
+
+    /* Floating particles */
+    .particles { position: absolute; inset: 0; pointer-events: none; }
+    .particle {
+      position: absolute;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: floatUp var(--dur, 9s) ease-in-out infinite var(--delay, 0s);
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(0) scale(1); }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.15; }
+      100% { opacity: 0; transform: translateY(-110vh) scale(0.4); }
+    }
+
+    /* Decorative frame */
+    .frame {
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(201,168,76,0.14);
+      pointer-events: none;
+    }
+    .corner {
+      position: absolute;
+      width: 28px; height: 28px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .corner-tl { top: 28px; left: 28px; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 28px; right: 28px; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 28px; left: 28px; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 28px; right: 28px; border-width: 0 2px 2px 0; }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-sigil {
+      display: inline-block;
+      font-size: 2.8rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      animation: rotateSlow 20s linear infinite;
+      filter: drop-shadow(0 0 14px rgba(201,168,76,0.45));
+    }
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero-name {
+      font-size: clamp(3.2rem, 11vw, 7rem);
+      color: var(--gold-light);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 50px rgba(201,168,76,0.3), 0 0 100px rgba(201,168,76,0.1);
+      animation: fadeUp 1.2s 0.1s ease both;
+    }
+
+    .hero-divider {
+      margin: 1.6rem auto;
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      position: relative;
+      animation: fadeUp 1.2s 0.35s ease both;
+    }
+    .hero-divider::before {
+      content: '⚜';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      padding: 0 0.6rem;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .hero-subtitle {
+      font-style: italic;
+      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      animation: fadeUp 1.2s 0.55s ease both;
+    }
+
+    .hero-quote {
+      margin-top: 2.2rem;
+      font-size: clamp(1.2rem, 3vw, 1.65rem);
+      color: var(--gold);
+      font-style: italic;
+      animation: fadeUp 1.2s 0.75s ease both;
+    }
+    .hero-quote::before { content: '❝'; margin-right: 0.3em; opacity: 0.55; }
+    .hero-quote::after  { content: '❞'; margin-left: 0.3em; opacity: 0.55; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      animation: bob 2.2s ease-in-out infinite;
+      text-align: center;
+    }
+    .scroll-hint span { display: block; margin-top: 5px; font-size: 0.6rem; }
+    @keyframes bob {
+      0%,100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
+      50%      { opacity: 0.8; transform: translateX(-50%) translateY(-7px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MAIN */
+    .main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 5rem 2rem 7rem;
+    }
+
+    .section { margin-bottom: 5rem; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+    .section-line { flex: 1; height: 1px; }
+    .section-line-l { background: linear-gradient(to right, var(--gold-dark), transparent); }
+    .section-line-r { background: linear-gradient(to left, var(--gold-dark), transparent); }
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* About */
+    .about-text {
+      font-size: 1.18rem;
+      line-height: 1.95;
+      color: var(--text);
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-text .hl { color: var(--gold); font-weight: 600; }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.11);
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .info-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.5), 0 0 25px rgba(201,168,76,0.08);
+    }
+    .info-card:hover::before { opacity: 1; }
+    .info-icon { font-size: 2rem; display: block; margin-bottom: 0.7rem; }
+    .info-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .info-value { font-size: 1.08rem; color: var(--gold-light); font-weight: 600; }
+
+    /* Social Grid */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 1.2rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .social-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.3s;
+      transform-origin: bottom;
+    }
+    .social-card:hover {
+      border-color: rgba(201,168,76,0.38);
+      transform: translateX(8px);
+      box-shadow: 0 6px 35px rgba(0,0,0,0.4);
+      color: var(--gold-light);
+    }
+    .social-card:hover::after { transform: scaleY(1); }
+
+    .social-icon { font-size: 1.9rem; width: 2.4rem; text-align: center; flex-shrink: 0; }
+    .social-name {
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      display: block;
+    }
+    .social-id { font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      color: var(--text-muted);
+    }
+    .footer-name {
+      font-family: 'UnifrakturMaguntia', serif;
+      font-size: 1.6rem;
+      color: var(--gold-dark);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    footer p { font-size: 0.88rem; letter-spacing: 0.08em; }
+    footer .sigil { display: block; margin-top: 1rem; opacity: 0.35; font-size: 0.8rem; letter-spacing: 0.3em; }
+
+    @media (max-width: 480px) {
+      .frame, .corner { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="frame"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="hero-content">
+    <span class="hero-sigil">✦</span>
+    <h1 class="hero-name old-english">Ayush Garai</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Technophile &nbsp;·&nbsp; Digital Wanderer</p>
+    <p class="hero-quote">Never Gonna Die</p>
+  </div>
+
+  <div class="scroll-hint">Scroll <span>▼</span></div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-line section-line-l"></div>
+      <h2 class="section-title old-english">About</h2>
+      <div class="section-line section-line-r"></div>
+    </div>
+    <p class="about-text">
+      A <span class="hl">Technophile</span> at heart, I walk the frontier where ancient craft meets the digital age.
+      Born on the <span class="hl">13th of December</span>, I live by a singular creed —
+      <em><span class="hl">Never Gonna Die</span></em>. Code, curiosity, and creation are my weapons of choice.
+      Every line of code is a spell; every project, a conquest.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-line section-line-l"></div>
+      <h2 class="section-title old-english">Chronicles</h2>
+      <div class="section-line section-line-r"></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">⚔️</span>
+        <span class="info-label">Name</span>
+        <span class="info-value old-english">Ayush Garai</span>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🎂</span>
+        <span class="info-label">Day of Birth</span>
+        <span class="info-value">13 December</span>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">💻</span>
+        <span class="info-label">Identity</span>
+        <span class="info-value">Technophile</span>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">⚜️</span>
+        <span class="info-label">Creed</span>
+        <span class="info-value" style="font-style:italic;">Never Gonna Die</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-line section-line-l"></div>
+      <h2 class="section-title old-english">Scrolls &amp; Guilds</h2>
+      <div class="section-line section-line-r"></div>
+    </div>
+    <div class="social-grid">
+      <a href="https://instagram.com/lil_ayushg" target="_blank" rel="noopener" class="social-card">
+        <span class="social-icon">📸</span>
+        <div>
+          <span class="social-name">Instagram</span>
+          <span class="social-id">@lil_ayushg</span>
+        </div>
+      </a>
+      <a href="https://github.com/lil_ayushg" target="_blank" rel="noopener" class="social-card">
+        <span class="social-icon">🐙</span>
+        <div>
+          <span class="social-name">GitHub</span>
+          <span class="social-id">lil_ayushg</span>
+        </div>
+      </a>
+      <div class="social-card" style="cursor:default;">
+        <span class="social-icon">🎮</span>
+        <div>
+          <span class="social-name">Free Fire</span>
+          <span class="social-id">ID: 13609450819</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span class="footer-name">Ayush Garai</span>
+  <p>Forged in darkness &nbsp;·&nbsp; Powered by curiosity</p>
+  <span class="sigil">✦ &nbsp; Never Gonna Die &nbsp; ✦</span>
+</footer>
+
+<script>
+  // Spawn floating particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 45; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.setProperty('--dur', (6 + Math.random() * 12) + 's');
+    p.style.setProperty('--delay', (Math.random() * 12) + 's');
+    const size = (0.8 + Math.random() * 2) + 'px';
+    p.style.width = p.style.height = size;
+    container.appendChild(p);
+  }
+
+  // Animate sections on scroll
+  const sections = document.querySelectorAll('.section');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fadeUp 0.8s ease forwards';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(30px)';
+    io.observe(s);
+  });
+</script>
+</body>
+</html>
