@@ -306,6 +306,35 @@
     }
     .social-id { font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
 
+    /* Densé AI special card */
+    .dai-card {
+      border-color: rgba(120, 180, 255, 0.18) !important;
+      background: linear-gradient(135deg, #0d1520, var(--surface));
+    }
+    .dai-card .social-name { color: #7ab8f5; }
+    .dai-card::after { background: #7ab8f5 !important; }
+    .dai-card:hover {
+      border-color: rgba(120, 180, 255, 0.45) !important;
+      box-shadow: 0 6px 35px rgba(0,0,0,0.4), 0 0 20px rgba(120,180,255,0.08) !important;
+    }
+    .dai-badge {
+      margin-left: auto;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7ab8f5;
+      border: 1px solid rgba(120,180,255,0.35);
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      animation: pulseBadge 2s ease-in-out infinite;
+      white-space: nowrap;
+      align-self: center;
+    }
+    @keyframes pulseBadge {
+      0%,100% { opacity: 0.7; box-shadow: none; }
+      50%      { opacity: 1; box-shadow: 0 0 8px rgba(120,180,255,0.4); }
+    }
+
     /* Footer */
     footer {
       text-align: center;
@@ -427,6 +456,14 @@
           <span class="social-id">ID: 13609450819</span>
         </div>
       </div>
+      <a href="https://lil-ayushg.github.io/Dai/" target="_blank" rel="noopener" class="social-card dai-card">
+        <span class="social-icon">🤖</span>
+        <div>
+          <span class="social-name">Densé AI</span>
+          <span class="social-id">My own chatbot &nbsp;✦</span>
+        </div>
+        <span class="dai-badge">Live</span>
+      </a>
     </div>
   </div>
 
